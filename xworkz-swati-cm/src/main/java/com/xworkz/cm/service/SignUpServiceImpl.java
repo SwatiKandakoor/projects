@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -43,14 +44,23 @@ public class SignUpServiceImpl implements SignUpService {
 			SignUpEntity entity = new SignUpEntity();
 			BeanUtils.copyProperties(dto, entity);
 			boolean saved = this.repository.save(entity);
-			for (Iterator iterator = constraintViolations.iterator(); iterator.hasNext();) {
-				ConstraintViolation<SignUpDto> constraintViolation = (ConstraintViolation<SignUpDto>) iterator.next();
-				System.out.println(constraintViolation);
-			}
+			
 			System.out.println(saved);
 			System.out.println("Dto" + dto);
 			log.info("ENTITY" + entity);
 			return Collections.emptySet();
 		}
+	}
+
+	@Override
+	public Integer checkDuplicates(String userId, String email, Double mobile) {
+       Integer count=this.repository.checkDuplicates(userId, email, mobile);
+           SignUpEntity entity=new SignUpEntity();
+    	   SignUpDto dto=new SignUpDto();
+           dto.setUserId(entity.getUserId());
+           dto.setEmail(entity.getEmail());
+           dto.setMobile(entity.getMobile());
+      
+		return count;
 	}
 }

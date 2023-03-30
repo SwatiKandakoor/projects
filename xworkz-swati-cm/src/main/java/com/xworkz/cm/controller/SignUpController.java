@@ -20,30 +20,33 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/")
 public class SignUpController {
-	
+
 	@Autowired
 	private SignUpService service;
+
 	public SignUpController() {
 		log.info("create " + this.getClass().getSimpleName());
 	}
-    
 
-	
 	@PostMapping("/sign")
-	public String onSave(Model model,SignUpDto dto) {
-			log.info("running post ");
+	public String onSave(Model model, SignUpDto dto, String userId, String email, Double mobile) {
+		log.info("running post ");
+		Integer count = this.service.checkDuplicates(userId, email, mobile);
+		if (count > 0) {
+			System.err.println("Duplicates values is thier.");
+		} else {
 			Set<ConstraintViolation<SignUpDto>> violation = this.service.validateAndSave(dto);
 			if (violation.isEmpty()) {
 				log.info(" no Violation in controller");
 				model.addAttribute("message", "Data Saved Sucessfully");
 				return "SignUp";
-			}
-			model.addAttribute("errors", violation);
-			model.addAttribute("messag", "Data is not Saved");
+			} else {
+				model.addAttribute("errors", violation);
+				model.addAttribute("messag", "Data is not Saved");
 
+			}
+		}
 		return "SignUp";
 	}
 
-	}
-
-
+}
