@@ -20,7 +20,7 @@ public class WebIni extends AbstractAnnotationConfigDispatcherServletInitializer
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		log.info("getServletConfigClasses");
-		return new Class[] {SignUpConfiguration.class};
+		return new Class[] {ProjectConfiguration.class};
 	}
 
 	@Override

@@ -16,15 +16,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @Slf4j
-public class SignUpRepositoryImpl implements SignUpRepository{
-   @Autowired
+public class ProjectRepositoryImpl implements ProjectRepository {
+	@Autowired
 	private EntityManagerFactory entityManagerFactory;
 
-	public SignUpRepositoryImpl() {
+	public ProjectRepositoryImpl() {
 		log.info("create " + this.getClass().getSimpleName());
 	}
 
-	
 	@Override
 	public boolean save(SignUpEntity entity) {
 		EntityManager manager = this.entityManagerFactory.createEntityManager();
@@ -36,24 +35,39 @@ public class SignUpRepositoryImpl implements SignUpRepository{
 		return true;
 	}
 
-
-
 	@Override
-	public Integer checkDuplicates(String userId, String email, Double mobile) {
+	public Integer checkDuplicates(String userId, String email, long mobile) {
 		EntityManager manager = this.entityManagerFactory.createEntityManager();
 		try {
 			Query query = manager.createNamedQuery("checkdupl");
+
 			query.setParameter("userId", userId);
 			query.setParameter("userEmail", email);
 			query.setParameter("userMobile", mobile);
-			int count =((Long) query.getSingleResult()).intValue();
+			int count = ((Long) query.getSingleResult()).intValue();
 			log.info("duplicates value size" + count);
-		
+
 			return count;
 
 		} finally {
 			manager.close();
-		}		
+		}
+	}
+
+	@Override
+	public List<SignUpEntity> signIn(String userId, String password) {
+		EntityManager manager = this.entityManagerFactory.createEntityManager();
+		try {
+			Query query = manager.createNamedQuery("signIn");
+			query.setParameter("userId", userId);
+			query.setParameter("userPassword", password);
+			List<SignUpEntity> list = query.getResultList();
+			return list;
+
+		} finally {
+			manager.close();
+		}
+
 	}
 
 }

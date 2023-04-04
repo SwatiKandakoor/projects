@@ -14,8 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 @ComponentScan("com.xworkz.cm")
 @Configuration
 @Slf4j
-public class SignUpConfiguration {
-	public SignUpConfiguration() {
+public class ProjectConfiguration {
+	
+	public ProjectConfiguration() {
 		log.info("create " + this.getClass().getSimpleName());
 	}
 	@Bean

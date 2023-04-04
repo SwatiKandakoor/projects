@@ -9,31 +9,31 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Entity
 @Table(name = "signup_table")
-@NamedQuery(name="checkdupl",query = "Select count(entity) from SignUpEntity entity "
-		+ " where entity.userId=:userId OR entity.email=:userEmail OR entity.mobile=:userMobile ")
+@NamedQuery(name="checkdupl",query = "Select count(entity) from SignUpEntity entity where entity.userId=:userId OR entity.email=:userEmail OR entity.mobile=:userMobile " )
+@NamedQuery(name="signIn",query = "SELECT entity FROM SignUpEntity entity where entity.userId=:userId AND entity.password=:userPassword")
+//@NamedQuery(name="checkdupl",query="select userId,email,mobile ,count(entity)from SignUpEntity entity where entity.userId=:userId Or entity.email=:userEmail or entity.mobile=:userMobile group by 1,2,3")
 public class SignUpEntity {
 	@Id
-	@Column(name = "s_signupId")
+	@Column(name = "signupId")
 	private int signUpId;
-	@Column(name = "s_userId")
+	@Column(name = "userId")
 	private String userId;
-	@Column(name = "s_email")
+	@Column(name = "email")
 	private String email;
-	@Column(name = "s_mobile")
-	private Double mobile;
-	@Column(name = "s_password")
+	@Column(name = "mobile")
+	private long mobile;
+	@Column(name = "password")
 	private String password;
-	@Column(name = "s_createBy")
+	@Column(name = "createBy")
 	private String createdBy;
-	@Column(name = "s_createDate")
+	@Column(name = "createDate")
 	private LocalDateTime createdDate;
-	@Column(name = "s_updateBy")
+	@Column(name = "updateBy")
 	private String updateBy;
-	@Column(name = "s_updateDate")
+	@Column(name = "updateDate")
 	private LocalDateTime updatedDate;
 }

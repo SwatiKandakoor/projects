@@ -24,11 +24,12 @@
 			<a class="navbar-brand" href="#"> <img
 				src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png"
 				alt="" width="150" height="55" class="d-inline-block align text-top">
-				<a href="SignUp.jsp">Sign Up</a>
-				<a href="SignIn.jsp">Sign In</a>
+				
 		</div>
 	</nav>
-	
+	<span><h1>Welcome Login Page,</h1><c:forEach items="${list}" var="u">
+	<h2 style="color:green" "float : right">User : <span>${u.userId}</span>
+	</h2></c:forEach></span>
 	
 </body>
 </html>
