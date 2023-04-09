@@ -97,8 +97,8 @@
 						<!-- mobile number input -->
 						<div class="form-outline mb-4">
 							<input type="number" id="MobileNoId" name="mobile"
-								class="form-control" onchange="onMobileNo()" placeholder="Phone Number"/> <label
-								class="form-label" for="MobileNoId">Mobile number</label> <span
+								class="form-control" onchange="onMobileNo()" placeholder="Phone Number"/> 
+								<label class="form-label" for="MobileNoId">Mobile number</label> <span
 								id="MobileNoError" style="color: red"></span>
 								<span style="color: red">${MobileNoExesist}</span>
 		                        <span id="displayMobileNo" style="color: red"></span>

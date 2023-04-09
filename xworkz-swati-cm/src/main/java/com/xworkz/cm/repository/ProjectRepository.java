@@ -13,7 +13,18 @@ public interface ProjectRepository {
 	
 	Integer checkDuplicates (String userId,String email,long mobile);
 
-    default List<SignUpEntity> signIn(String userId,String password){
+    default List<SignUpEntity> signIn(String userId){
+    	return Collections.emptyList();
+    	
+    }
+    
+    boolean updateWrongLoginAttempts(String userId,int lockCount);
+    
+    default List<SignUpEntity> findByEmail(String email){
     	return Collections.emptyList();
     }
+    boolean updateResetPwd(String email,boolean resetPwd,String password);
+    
+    boolean updateConfirmPwd(String userId,boolean resetPwd,String password);
+
 }

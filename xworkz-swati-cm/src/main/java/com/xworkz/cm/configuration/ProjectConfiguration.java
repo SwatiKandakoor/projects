@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -38,5 +40,10 @@ public class ProjectConfiguration {
 		return new LocalContainerEntityManagerFactoryBean();
 
 	}
+	 @Bean
+	    public PasswordEncoder passwordEncoder() {
+		 log.info("Registering the PasswordEncoder");
+	        return new BCryptPasswordEncoder(10);
+	    }
 
 }

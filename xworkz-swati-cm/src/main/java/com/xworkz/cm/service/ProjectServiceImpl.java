@@ -23,6 +23,7 @@ import javax.validation.ValidatorFactory;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.xworkz.cm.dto.SignUpDto;
@@ -37,6 +38,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
 	private ProjectRepository repository;
+	@Autowired
+	private PasswordEncoder encoder;
 
 	public ProjectServiceImpl() {
 		log.info("create " + this.getClass().getSimpleName());
@@ -55,14 +58,16 @@ public class ProjectServiceImpl implements ProjectService {
 			SignUpEntity entity = new SignUpEntity();
 			BeanUtils.copyProperties(dto, entity);
 			entity.setCreatedBy(dto.getUserId());
+			entity.setPassword(encoder.encode(dto.getPassword()));
+
+			log.info("password" + dto);
 			boolean saved = this.repository.save(entity);
 			if (saved) {
-			//	sendMail(dto.getEmail());
-			boolean	sent=sendMail("sahanagn275@gmail.com");
-			System.out.println("mail  sent"+sent);
+				// sendMail(dto.getEmail());
+				boolean sent = sendMail(entity.getEmail(), "Registraion success ");
+				System.out.println("mail  sent" + sent);
 			}
 			System.out.println(saved);
-			
 
 			System.out.println("Dto" + dto);
 			log.info("ENTITY" + entity);
@@ -83,12 +88,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public boolean sendMail(String email) {
+	public boolean sendMail(String email, String input_msg) {
 		log.info("running on send mail");
 		String portNumber = "587";// 485,587,25
 		String hostName = "smtp.office365.com";
-		String fromEmail = "sahana.mc26@outlook.com";
-		String password = "Swati@2806";
+		String fromEmail = "swatik2806@outlook.com";
+		String password = "Swati2806";
 		String to = email;
 		// 1)configure the SMTP server details using the java Properties Object
 		Properties prop = new Properties();
@@ -109,17 +114,17 @@ public class ProjectServiceImpl implements ProjectService {
 				return new PasswordAuthentication(fromEmail, password);
 			}
 		});
-//3)message class to create  message .*file,*text
-
+		
+		//3)message class to create  message .*file,*text
 		MimeMessage message = new MimeMessage(session);
+		
 		// 4)set the to,from,subject,message ->set email important this
-
 		try {
 			message.setFrom(new InternetAddress(fromEmail));
 			message.setSubject("Registration  completed");
-			message.setText("Thanks for registration");
+			message.setText(input_msg);
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-//5)use transport class to send the mail
+			//5)use transport class to send the mail
 			Transport.send(message);
 			log.info("mail sent successfully");
 		} catch (MessagingException e) {
@@ -130,19 +135,55 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public List<SignUpDto> signIn(String userId, String password) {
-		List<SignUpEntity> entities = this.repository.signIn(userId, password);
+	public String signIn(String userId, String password) {
+		List<SignUpEntity> entities = this.repository.signIn(userId);
 		List<SignUpDto> listOfDto = new ArrayList<SignUpDto>();
 		for (SignUpEntity entity : entities) {
 			SignUpDto dto = new SignUpDto();
-			BeanUtils.copyProperties(entity, dto);
-
-			listOfDto.add(dto);
-
+			
+			if (entity.getLoginCount() >= 3) {
+				return "locked";
+			}
+			
+			if (encoder.matches(password, entity.getPassword())) {
+				BeanUtils.copyProperties(entity, dto);
+				listOfDto.add(dto);
+				System.out.println("matched" + password);
+				this.repository.updateWrongLoginAttempts(userId, 0);
+				if(entity.isResetPwd())
+					return "reset_pwd";
+				return "login_success";
+			} else {
+				this.repository.updateWrongLoginAttempts(userId, entity.getLoginCount() + 1);
+				log.info("Wrong login attempts " + (entity.getLoginCount()+1));
+			}
+		
 		}
-
-		return listOfDto;
-
+		return "login_fail";
 	}
-
+	
+	@Override
+	public String resetPwd(String email) {
+			log.info("running resetPwd is service.." );
+				List<SignUpEntity> entities = this.repository.findByEmail(email);
+				if(entities.isEmpty()) {
+					return "email not found";
+				}
+				for (SignUpEntity entity : entities) {
+					if (!email.isEmpty()) {
+					boolean sent=	sendMail(email,"password:abcdef");
+					log.info("email send sucessfuly to "+email);
+					
+				}
+				this.repository.updateResetPwd(email, true, encoder.encode("abcdef"));
+				
+			}
+				return "email has been sent with new password"; 
+	}
+	@Override
+	public String updatePwd(String userId, String password, boolean resetPwd) {
+		this.repository.updateConfirmPwd(userId, false, encoder.encode(password));
+		return "Update New Password";
+	}
 }
+

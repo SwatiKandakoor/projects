@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xworkz.cm.dto.SignUpDto;
+import com.xworkz.cm.entity.SignUpEntity;
 import com.xworkz.cm.service.ProjectService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -56,85 +57,39 @@ public class ProjectController {
 	@PostMapping("/signIn")
 	public String onSignIn(@RequestParam String userId, @RequestParam String password, Model model) {
 		log.info("running on sign In page");
-		List<SignUpDto> list = this.service.signIn(userId, password);
-		if (!list.isEmpty()) {
-			log.info("User ID and Password is Matching");
-			model.addAttribute("list",list);
-			return "LoginSuccess";
+		try {
+			String message = this.service.signIn(userId, password);
+			
+			if (message == "reset_pwd") {
+				model.addAttribute("message",userId);
+				return "UpdatePwd";
+			} else if (message == "locked") {
+				model.addAttribute("message", "You tried maximum retries and your account is locked.");
+			} else if (message == "login_success") {
+				log.info("User ID and Password is Matching");
+				model.addAttribute("message",userId);
+				return "LoginSuccess";
+			} else if (message == "login_fail") {
+				model.addAttribute("message", "User ID Or Password is not Matching");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		model.addAttribute("message", "User ID Or Password is not Matching");
-
 		return "SignIn";
 	}
 
+	@PostMapping("/resetPwd")
+	public String onResetPwd(@RequestParam String email, Model model) {
+		String message = this.service.resetPwd(email);
+		model.addAttribute("message", message);
+		return "Forgotpwd";
+	}
+	
+	@PostMapping("/updatePwd")
+	public String onUpdatePwd(@RequestParam String userId,@RequestParam String password) {
+		this.service.updatePwd(userId, password, false);
+		return "UpdatePwd";
+	}
+	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

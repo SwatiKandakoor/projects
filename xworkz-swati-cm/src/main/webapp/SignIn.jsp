@@ -26,6 +26,7 @@
 				alt="" width="150" height="55" class="d-inline-block align text-top">
 				<a href="SignUp.jsp">Sign Up</a>
 				<a href="index.jsp">Home</a>
+				<a href="UpdatePwd.jsp">Update password</a>
 				
 		</div>
 	</nav>
@@ -42,8 +43,8 @@
              <p >Please enter your User Id and password!</p>
 
             <div class="form-outline mb-4">
-              <input type="text" class="form-control form-control-lg"  name="userId"/>
-              <label class="form-label"  placeholder="User Id">User Id</label>
+              <input type="text" class="form-control"  name="userId" placeholder="User Id"/>
+              <label class="form-label" >User Id</label>
             </div>
 
  
@@ -59,7 +60,7 @@
               <input class="form-check-input" type="checkbox" value="" id="form1Example3"  />
               <label class="form-check-label" for="form1Example3"> Remember me </label>
             </div>
-            <a href="#!">Forgot password?</a>
+            <a href="Forgotpwd.jsp">Forgot password?</a>
           </div>
             <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
 <hr>

@@ -27,9 +27,8 @@
 				
 		</div>
 	</nav>
-	<span><h1>Welcome Login Page,</h1><c:forEach items="${list}" var="u">
-	<h2 style="color:green" "float : right">User : <span>${u.userId}</span>
-	</h2></c:forEach></span>
+	<h1>Welcome Login Page,</h1><h5 style="color: green;">${message}</h5>
+	
 	
 </body>
 </html>
