@@ -26,7 +26,6 @@
 				alt="" width="150" height="55" class="d-inline-block align text-top">
 				<a href="SignUp.jsp">Sign Up</a>
 				<a href="index.jsp">Home</a>
-				<a href="UpdatePwd.jsp">Update password</a>
 				
 		</div>
 	</nav>
@@ -44,13 +43,13 @@
 
             <div class="form-outline mb-4">
               <input type="text" class="form-control"  name="userId" placeholder="User Id"/>
-              <label class="form-label" >User Id</label>
+              <label class="form-label" ></label>
             </div>
 
  
             <div class="form-outline mb-4">
-              <input type="password" id="typePasswordX-2" class="form-control form-control-lg" name="password"/>
-              <label class="form-label" for="typePasswordX-2" placeholder="Password">Password</label>
+              <input type="password" id="typePasswordX-2" class="form-control " name="password" placeholder="Password"/>
+              <label class="form-label" for="typePasswordX-2" ></label>
             </div>
 
             
@@ -65,7 +64,7 @@
             <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
 <hr>
            <div>
-              <p class="mb-0">Don't have an account? <a href="#!" class="text-Bold-50 fw-bold">Sign Up</a>
+              <p class="mb-0">Don't have an account? <a href="SignUp.jsp" class="text-Bold-50 fw-bold">Sign Up</a>
               </p>
             </div>
     

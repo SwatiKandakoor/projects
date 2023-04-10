@@ -26,10 +26,10 @@
 				alt="" width="150" height="55" class="d-inline-block align text-top">
 				<a href="SignUp.jsp">Sign Up</a> <a href="index.jsp">Home</a>
 		</div>
-	</nav>	
-	<h4 >${message}</h4>
+	</nav>
+	<h4>${message}</h4>
 	<form action="updatePwd" method="post">
-	<input type="text" name="userId" value=${userId}>
+		<input type="hidden" name="userId" value=${message} >
 		<section class="vh-100">
 			<div class="container py-5 h-100">
 				<div
@@ -43,25 +43,61 @@
 
 
 								<div class="form-outline mb-4">
-									<input type="password" id="typePasswordX-2"
-										class="form-control" name="password" placeholder="Password" />
-									<label class="form-label" for="typePasswordX-2"></label>
+									<input type="password" id="userPassword" class="form-control"
+										name="password" placeholder="Password" /> <label
+										class="form-label" for="userPassword"></label>
 								</div>
 
 								<div class="form-outline mb-4">
-									<input type="password" id="typePasswordX-2"
-										class="form-control" name="password"
-										placeholder="Confirm New Password" /> <label
-										class="form-label" for="typePasswordX-2"></label>
+									<input type="password" id="userConfirmPassword"
+										class="form-control" name="confirmPassword"
+										onblur="ValidePassword()" placeholder="Confirm New Password" />
+									<label class="form-label" for="userConfirmPassword"></label> <span
+										id="passwordCompare" style="color: red"></span>
 								</div>
-								<button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
 
 
+								<div>
+									<button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
+								</div>
+								<script>
+									function ValidePassword() {
+										var userPassword = document
+												.getElementById('userPassword');
+										var userConfirmPassword = document
+												.getElementById('userConfirmPassword');
+										var userPasswordvalue = userPassword.value;
+										var userConfirmPasswordvalue = userConfirmPassword.value;
+										console.log(userPasswordvalue);
+										if (userPasswordvalue != null
+												&& userPasswordvalue != ""
+												&& userPasswordvalue.length > 4
+												&& userPasswordvalue.length < 12) {
+											if (userPasswordvalue == userConfirmPasswordvalue) {
+												console
+														.log('valide both password are same');
+												document
+														.getElementById('passwordCompare').innerHTML = '';
+											} else {
+												console
+														.log('valide both password are not same');
+												document
+														.getElementById('passwordCompare').innerHTML = 'Password and ConfirmPassword must be same';
+											}
+											console.log('valide password');
+											document
+													.getElementById('passwordError').innerHTML = '';
+										} else {
+											console.log('invalide password');
+											document
+													.getElementById('passwordError').innerHTML = 'Plese enter valide password';
+										}
+									}
+								</script>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 		</section>
 	</form>
 </body>

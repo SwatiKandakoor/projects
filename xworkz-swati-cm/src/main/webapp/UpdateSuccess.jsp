@@ -27,9 +27,7 @@
 				
 		</div>
 	</nav>
-	<h1>Welcome Login Page,</h1>userId :<h2 style="color: green;">${message}</h2>
-	
-	
+	<h1 style="color: green;">${UpdateSuccess}</h1>
 	
 </body>
 </html>

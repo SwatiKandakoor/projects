@@ -21,6 +21,9 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -155,7 +158,7 @@ public class ProjectServiceImpl implements ProjectService {
 				return "login_success";
 			} else {
 				this.repository.updateWrongLoginAttempts(userId, entity.getLoginCount() + 1);
-				log.info("Wrong login attempts " + (entity.getLoginCount()+1));
+				log.info("dWrong login attempts " + (entity.getLoginCount()+1));
 			}
 		
 		}
@@ -171,15 +174,32 @@ public class ProjectServiceImpl implements ProjectService {
 				}
 				for (SignUpEntity entity : entities) {
 					if (!email.isEmpty()) {
-					boolean sent=	sendMail(email,"password:abcdef");
+					boolean sent=this.sendMail(email,"password:abcdef");
 					log.info("email send sucessfuly to "+email);
 					
 				}
 				this.repository.updateResetPwd(email, true, encoder.encode("abcdef"));
 				
 			}
-				return "email has been sent with new password"; 
+				return "email has been sent with new password,please"; 
 	}
+//	public static String generateRandomPassword() {
+//	    PasswordGenerator gen = new PasswordGenerator();
+//	    CharacterRule LC =new CharacterRule(EnglishCharacterData.LowerCase);
+//	    LC.setNumberOfCharacters(2);
+//
+//	    CharacterRule UC =new CharacterRule(EnglishCharacterData.UpperCase);
+//	    UC.setNumberOfCharacters(2);
+//	   
+//	    CharacterRule digit =new CharacterRule(EnglishCharacterData.Digit);
+//	    digit.setNumberOfCharacters(2);
+//	   
+//	    String password = gen.generatePassword(10, LC, UC, digit);  
+//	    return password;
+//	}
+//	
+
+
 	@Override
 	public String updatePwd(String userId, String password, boolean resetPwd) {
 		this.repository.updateConfirmPwd(userId, false, encoder.encode(password));

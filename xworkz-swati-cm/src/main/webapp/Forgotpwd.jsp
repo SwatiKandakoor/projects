@@ -27,7 +27,7 @@
 				<a href="SignUp.jsp">Sign Up</a> <a href="index.jsp">Home</a>
 		</div>
 	</nav>
-	<h4 style="color:green">${message}</h4>
+<!--  	<h4 style="color:green">${message}</h4>-->
 	
 	<form action="resetPwd" method="post">
 		<section class="vh-100">
@@ -39,13 +39,26 @@
 							<div class="card-body p-5 text-center">
 								<h3 class="mb-5">Forgot Password</h3>
 								<div class="form-outline mb-4">
-									<input type="text" class="form-control form-control-lg"
-										name="email" /> <label class="form-label"
-										placeholder="Email">Email</label>
+									<input type="text" class="form-control " placeholder="Email"
+										name="email" /> <label class="form-label">
+										</label>
 								</div>
 								<button class="btn btn-primary btn-lg btn-block" type="submit">Reset</button>
-
+								<br>
+								<br>
+								<hr>
 							</div>
+							
+							 <div>
+							 
+              <p class="mb-0 text-center">${message} <a href="SignIn.jsp" class="text-Bold-50 fw-bold ">login</a>
+              </p>
+            </div>
+            <br>
+            
+            
+          
+    
 						</div>
 					</div>
 				</div>

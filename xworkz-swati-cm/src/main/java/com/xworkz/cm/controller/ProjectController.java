@@ -86,10 +86,17 @@ public class ProjectController {
 	}
 	
 	@PostMapping("/updatePwd")
-	public String onUpdatePwd(@RequestParam String userId,@RequestParam String password) {
-		this.service.updatePwd(userId, password, false);
+	public String onUpdatePwd(@RequestParam String userId,@RequestParam String password,Model model) {
+	String msg=	this.service.updatePwd(userId, password, false);
+	if(msg!=null) {
+		model.addAttribute("UpdateSuccess","Welcome to Update Password");
+		return "UpdateSuccess";
+	}
+		model.addAttribute("error","invalid Password");
 		return "UpdatePwd";
+		
 	}
 	
 
 }
+ 	
