@@ -24,12 +24,12 @@
 			<a class="navbar-brand" href="#"> <img
 				src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png"
 				alt="" width="150" height="55" class="d-inline-block align text-top">
-				<a href="SignUp.jsp">Sign Up</a> <a href="index.jsp">Home</a>
+				<a href="index.jsp">Home</a>
 		</div>
 	</nav>
 	<h4>${message}</h4>
 	<form action="updatePwd" method="post">
-		<input type="hidden" name="userId" value=${message} >
+		<input type="hidden" name="userId" value=${message } />
 		<section class="vh-100">
 			<div class="container py-5 h-100">
 				<div
@@ -37,10 +37,7 @@
 					<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 						<div class="card shadow-2-strong" style="border-radius: 1rem;">
 							<div class="card-body p-5 text-center">
-
 								<h3 class="mb-5">Update New Password</h3>
-
-
 
 								<div class="form-outline mb-4">
 									<input type="password" id="userPassword" class="form-control"
@@ -55,7 +52,6 @@
 									<label class="form-label" for="userConfirmPassword"></label> <span
 										id="passwordCompare" style="color: red"></span>
 								</div>
-
 
 								<div>
 									<button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>

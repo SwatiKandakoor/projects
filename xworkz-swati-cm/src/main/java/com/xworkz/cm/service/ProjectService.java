@@ -10,24 +10,30 @@ import com.xworkz.cm.dto.SignUpDto;
 import com.xworkz.cm.entity.SignUpEntity;
 
 public interface ProjectService {
-	
-	
-	
+
 	Set<ConstraintViolation<SignUpDto>> validateAndSave(SignUpDto dto);
-    
-	Integer checkDuplicates (String userId, String email, long mobile);
+
+	Integer checkDuplicates(String userId, String email, long mobile);
+
 	boolean sendMail(String email, String message);
-	
-	  default String signIn(String userId,String password){
-	    	return null;
-	    }
-	  
-	    default String resetPwd(String email){
-	    	return null;
-	    }
-	    
-	    default String updatePwd(String userId,String password,boolean resetPwd) {
-	    	return null;
-	    }
-	    
+
+	default String signIn(String userId, String password) {
+		return null;
+	}
+
+	default String resetPwd(String email) {
+		return null;
+	}
+	default SignUpDto findByuserId(String userId ) {
+		return null;
+	}
+
+
+	default String updatePwd(String userId, String password, boolean resetPwd) {
+		return null;
+	}
+	Set<ConstraintViolation<SignUpDto>> validateAndUpdateProfile(SignUpDto dto);
+
+
+
 }

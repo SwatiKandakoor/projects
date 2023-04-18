@@ -23,7 +23,7 @@
 			<a class="navbar-brand" href="#"> <img
 				src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png"
 				alt="" width="150" height="55" class="d-inline-block align text-top">
-				<a href="index.jsp">Home</a>
+				<a href="index.jsp">Home</a> <a href="SignIn.jsp">SignIn</a>
 		</div>
 	</nav>
 
@@ -54,23 +54,23 @@
 					<!-- outer box -->
 					<div class="card-body px-4 py-5 px-md-5">
 						<!-- inner box sizes -->
-			<!-- user id -->
+						<!-- user id -->
 						<div class="form-outline mb-4">
 							<input type="text" id="Id" name="userId" class="form-control"
-								onchange="onUser()" placeholder="User Name" /> <label for="Id">User Id</label> <span
-								id="UserIdError" style="color: red"></span>
-								<span style="color: red">${userIdExesist}</span>
-		                        <span id="displayUserName" style="color: red"></span>
+								onchange="onUser()" placeholder="User Name" /> <label for="Id">User
+								Id</label> <span id="UserIdError" style="color: red"></span> <span
+								style="color: red">${userIdExesist}</span> <span
+								id="displayUserName" style="color: red"></span>
 						</div>
 
 						<!-- Email input -->
 						<div class="form-outline mb-4">
 							<input type="email" id="EmailId" name="email"
-								class="form-control" onchange="onEmail()" placeholder="Email"/> <label
-								class="form-label" for="EmailId">Email address</label> <span
-								id="EmailError" style="color: red"></span>
-								<span style="color: red">${EmailisExesist}</span>
-		                        <span id="displayEmail" style="color: red"></span>
+								class="form-control" onchange="onEmail()" placeholder="Email" />
+							<label class="form-label" for="EmailId">Email address</label> <span
+								id="EmailError" style="color: red"></span> <span
+								style="color: red">${EmailisExesist}</span> <span
+								id="displayEmail" style="color: red"></span>
 						</div>
 
 
@@ -97,11 +97,11 @@
 						<!-- mobile number input -->
 						<div class="form-outline mb-4">
 							<input type="number" id="MobileNoId" name="mobile"
-								class="form-control" onchange="onMobileNo()" placeholder="Phone Number"/> 
-								<label class="form-label" for="MobileNoId">Mobile number</label> <span
-								id="MobileNoError" style="color: red"></span>
-								<span style="color: red">${MobileNoExesist}</span>
-		                        <span id="displayMobileNo" style="color: red"></span>
+								class="form-control" onchange="onMobileNo()"
+								placeholder="Phone Number" /> <label class="form-label"
+								for="MobileNoId">Mobile number</label> <span id="MobileNoError"
+								style="color: red"></span> <span style="color: red">${MobileNoExesist}</span>
+							<span id="displayMobileNo" style="color: red"></span>
 						</div>
 
 

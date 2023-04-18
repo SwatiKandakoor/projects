@@ -17,10 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @Slf4j
 public class ProjectConfiguration {
-	
+
 	public ProjectConfiguration() {
 		log.info("create " + this.getClass().getSimpleName());
 	}
+
 	@Bean
 	public MultipartResolver multipartResolver() {
 		log.info("registering multipartResolver");
@@ -30,20 +31,21 @@ public class ProjectConfiguration {
 
 	@Bean
 	public ViewResolver viewResolver() {
-		log.info("viewResolver ");
+		log.info("running viewResolver ");
 		return new InternalResourceViewResolver("/", ".jsp");
 	}
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean() {
-		log.info("localContainerEntityManagerFactoryBean");
+		log.info("running localContainerEntityManagerFactoryBean");
 		return new LocalContainerEntityManagerFactoryBean();
 
 	}
-	 @Bean
-	    public PasswordEncoder passwordEncoder() {
-		 log.info("Registering the PasswordEncoder");
-	        return new BCryptPasswordEncoder(10);
-	    }
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		log.info("Registering the PasswordEncoder");
+		return new BCryptPasswordEncoder(10);
+	}
 
 }

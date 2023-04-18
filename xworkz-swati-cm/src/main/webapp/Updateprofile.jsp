@@ -17,6 +17,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
+
+<script src="timer.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg-navbar-Light bg-dark">
@@ -27,9 +29,8 @@
 				<a href="index.jsp">Home</a>
 		</div>
 	</nav>
-	<!--  	<h4 style="color:green">${message}</h4>-->
 
-	<form action="resetPwd" method="post">
+	<form action="updateProfile" method="post">
 		<section class="vh-100">
 			<div class="container py-5 h-100">
 				<div
@@ -37,22 +38,43 @@
 					<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 						<div class="card shadow-2-strong" style="border-radius: 1rem;">
 							<div class="card-body p-5 text-center">
-								<h3 class="mb-5">Forgot Password</h3>
-								<div class="form-outline mb-4">
-									<input type="text" class="form-control " placeholder="Email"
-										name="email" /> <label class="form-label"> </label>
-								</div>
-								<button class="btn btn-primary btn-lg btn-block" type="submit">Reset</button>
-								<br> <br>
-								<hr>
-							</div>
 
-							<div>
-								<p class="mb-0 text-center">${message}
-									<a href="SignIn.jsp" class="text-Bold-50 fw-bold ">login</a>
-								</p>
+								<h3 class="mb-5">Update Profile</h3>
+
+								<div class="form-outline mb-4">
+									<input type="email" id="EmailId" name="email"
+										class="form-control" placeholder="Email" value="${dto.email}"
+										readonly /> <label class="form-label" for="EmailId">Email
+										address</label>
+								</div>
+
+								<div class="form-outline mb-4">
+									<input type="text" id="Id" name="userId" class="form-control"
+										placeholder="User Name" value="${dto.userId}" /> <label
+										for="Id">User Id</label>
+								</div>
+
+
+								<!-- mobile number input -->
+								<div class="form-outline mb-4">
+									<input type="number" id="MobileNoId" name="mobile"
+										class="form-control" placeholder="Phone Number"
+										value="${dto.mobile}" /> <label class="form-label"
+										for="MobileNoId">Mobile number</label>
+
+								</div>
+
+                                <div>
+								Select Profile Pic :<input type="file" name="profilePic"
+									enctype="multipart/form-data" /> 
+									<label class="form-label"></label>
+                               </div>
+
+<br>
+								<button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
+
+
 							</div>
-							<br>
 						</div>
 					</div>
 				</div>

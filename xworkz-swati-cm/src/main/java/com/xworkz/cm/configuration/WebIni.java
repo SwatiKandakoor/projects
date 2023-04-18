@@ -16,26 +16,25 @@ public class WebIni extends AbstractAnnotationConfigDispatcherServletInitializer
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		log.info("getRootConfigClasses");
+		log.info("running getRootConfigClasses");
 		return null;
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		log.info("getServletConfigClasses");
+		log.info("running getServletConfigClasses");
 		return new Class[] { ProjectConfiguration.class };
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		log.info("getServletMappings");
+		log.info("running getServletMappings");
 		return new String[] { "/" };
 	}
 
-	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		log.info("configureDefaultServletHandling");
+		log.info("running configureDefaultServletHandling");
 		configurer.enable();
 	}
 

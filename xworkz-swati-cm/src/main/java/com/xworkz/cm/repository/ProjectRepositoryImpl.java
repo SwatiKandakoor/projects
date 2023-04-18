@@ -1,6 +1,7 @@
 package com.xworkz.cm.repository;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -41,15 +42,12 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		EntityManager manager = this.entityManagerFactory.createEntityManager();
 		try {
 			Query query = manager.createNamedQuery("checkdupl");
-
 			query.setParameter("userId", userId);
 			query.setParameter("userEmail", email);
 			query.setParameter("userMobile", mobile);
 			int count = ((Long) query.getSingleResult()).intValue();
 			log.info("duplicates value size" + count);
-
 			return count;
-
 		} finally {
 			manager.close();
 		}
@@ -63,11 +61,9 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 			query.setParameter("userId", userId);
 			List<SignUpEntity> list = query.getResultList();
 			return list;
-
 		} finally {
 			manager.close();
 		}
-
 	}
 
 	@Override
@@ -81,12 +77,10 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 			query.setParameter("userId", userId);
 			query.executeUpdate();
 			entityTransaction.commit();
-
 			return false;
 		} finally {
 			entityManager.close();
 		}
-
 	}
 
 	@Override
@@ -98,11 +92,9 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 			List<SignUpEntity> list = query.getResultList();
 			log.info("Total List found in repo.." + list.size());
 			return list;
-
 		} finally {
 			manager.close();
 		}
-
 	}
 
 	@Override
@@ -117,10 +109,10 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 			query.setParameter("password", password);
 			query.setParameter("updatedBy", "System");
 			query.setParameter("updatedDate", LocalDateTime.now());
+			query.setParameter("otpRequestedTime", LocalDateTime.now().plusSeconds(120));
 
 			query.executeUpdate();
 			entityTransaction.commit();
-
 			return false;
 		} finally {
 			entityManager.close();
@@ -140,7 +132,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 			query.setParameter("password", password);
 			query.setParameter("updatedBy", userId);
 			query.setParameter("updatedDate", LocalDateTime.now());
-
 			query.executeUpdate();
 			entityTransaction.commit();
 
@@ -149,4 +140,28 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 			entityManager.close();
 		}
 	}
+
+	@Override
+	public boolean updateProfile(SignUpEntity entity) {
+		EntityManager manager = this.entityManagerFactory.createEntityManager();
+		try {
+			EntityTransaction transaction = manager.getTransaction();
+			transaction.begin();
+			manager.merge(entity);
+			transaction.commit();
+			return true;
+		} finally {
+			manager.close();
+		}
+		
+	}
+		@Override
+		public SignUpEntity findByuserId(String userId) {
+			log.info("find by id in repo.." + userId);
+			EntityManager entitymanager = this.entityManagerFactory.createEntityManager();
+			SignUpEntity fromDb = entitymanager.find(SignUpEntity.class,userId);
+			entitymanager.close();
+			return fromDb;
+		}
+
 }

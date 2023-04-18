@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <meta charset="ISO-8859-1">
@@ -24,12 +24,13 @@
 			<a class="navbar-brand" href="#"> <img
 				src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png"
 				alt="" width="150" height="55" class="d-inline-block align text-top">
-				
 		</div>
 	</nav>
-	<h1>Welcome Login Page,</h1>userId :<h2 style="color: green;">${message}</h2>
-	
-	
-	
+	<h1>Welcome Login Page,</h1>
+	userId :
+	<h2 style="color: green;">${message}</h2>
+
+
+
 </body>
 </html>
