@@ -1,5 +1,10 @@
 package com.xworkz.cm.configuration;
 
+import java.io.File;
+
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class WebIni extends AbstractAnnotationConfigDispatcherServletInitializer implements WebMvcConfigurer {
+
+	private int maxUploadSizeInMb = 10 * 1024 * 1024;
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -38,4 +45,12 @@ public class WebIni extends AbstractAnnotationConfigDispatcherServletInitializer
 		configurer.enable();
 	}
 
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		log.info("customizeRegistration");
+		String temDir = "";
+		File uploadDirectory = new File(System.getProperty("java.io.tmpdir"));
+		MultipartConfigElement multipartConfigElement = new MultipartConfigElement(uploadDirectory.getPath(), maxUploadSizeInMb, maxUploadSizeInMb*2, maxUploadSizeInMb/2);
+		registration.setMultipartConfig(multipartConfigElement);
+	}
 }

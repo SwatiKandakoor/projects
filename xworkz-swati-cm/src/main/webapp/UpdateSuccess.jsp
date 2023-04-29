@@ -29,11 +29,10 @@
 	<h1 style="color: green;">${UpdateSuccess}</h1>
 	userId :
 	<h5 style="color: green;">${message}</h5>
-
 	
 
-	<a href="Updateprofile.jsp">Update Profile</a><br>
-	<a href="Add.jsp">add</a><br>
+	<a href="update?userId=${message}">Update Profile</a><br>
+	<a href="addTechnology">add</a><br>
 	<a href="Search.jsp">Search</a>
 
 

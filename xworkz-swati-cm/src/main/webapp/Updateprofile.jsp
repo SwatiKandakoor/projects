@@ -18,7 +18,7 @@
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
 
-<script src="timer.js"></script>
+<!-- <script src="timer.js"></script> -->
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg-navbar-Light bg-dark">
@@ -30,7 +30,7 @@
 		</div>
 	</nav>
 
-	<form action="updateProfile" method="post">
+	<form action="updateProfile" method="post" enctype="multipart/form-data">
 		<section class="vh-100">
 			<div class="container py-5 h-100">
 				<div
@@ -65,9 +65,9 @@
 								</div>
 
                                 <div>
-								Select Profile Pic :<input type="file" name="profilePic"
-									enctype="multipart/form-data" /> 
-									<label class="form-label"></label>
+								Select Profile Pic :<input type="file" name="profilePicture"
+								 id="profilePicture"/> 
+									<label class="form-label" for="profilePicture"></label>
                                </div>
 
 <br>

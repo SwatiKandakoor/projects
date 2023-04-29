@@ -1,12 +1,18 @@
 package com.xworkz.cm.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import com.xworkz.cm.dto.SignUpDto;
 import com.xworkz.cm.entity.SignUpEntity;
@@ -114,7 +122,8 @@ public class ProjectController {
 //		model.addAttribute("error","invalid Password");
 		return "UpdatePwd";
 	}
-	@GetMapping("/updateProfile")
+
+	@GetMapping("/update")
 	public String onUpdate(@RequestParam String userId, Model model) {
 		log.info("running onupdate.." + userId);
 		SignUpDto dto = this.service.findByuserId(userId);
@@ -124,23 +133,51 @@ public class ProjectController {
 	}
 
 	@PostMapping("/updateProfile")
-	public String onUpdateProfile(SignUpDto dto, Model model,@RequestParam("profilePic")MultipartFile file)throws IOException  {
+	public String onUpdateProfile(SignUpDto dto, Model model, @RequestParam("profilePicture") MultipartFile file,
+			String userId) throws IOException {
 		log.info("running onupdate " + dto);
-		Set<ConstraintViolation<SignUpDto>> constraintViolations = this.service.validateAndUpdateProfile(dto);
-		if (constraintViolations.size() > 0) {
-			model.addAttribute("error", constraintViolations);
-
-		} else {
+		log.info("multipartFile" + file);
+		log.info(file.getOriginalFilename());
+		log.info(file.getContentType());
+		log.info("Size of file" + file.getSize());
+		log.info("Size of bite" + file.getBytes());
+		SignUpDto updateDto = this.service.findByEmail(dto.getEmail());
+		if(file!=null) {
 			model.addAttribute("message", "Update Profile  success...");
-			model.addAttribute("dto",dto);
-			log.info("MultipartFile " + file);
-			log.info(file.getOriginalFilename());
-			log.info(file.getContentType());
 			byte[] bytes = file.getBytes();
-			Path path = Paths.get("D:\\hospital-file\\" + file.getOriginalFilename());
+			Path path = Paths.get("D:\\Project_image_file" + userId + System.currentTimeMillis() + ".jpg");
+			String imageName = path.getFileName().toString();
 			Files.write(path, bytes);
-			
+			updateDto.setProfilePic(imageName);
+			log.info("Image name--" + imageName);
+			log.info("Image name in tostring--" + path.toString());
+			log.info("Image file name--" + path.getFileName());
 		}
-		return "Updateprofile";
+		updateDto.setMobile(dto.getMobile());
+		updateDto.setUserId(dto.getUserId());
+		Set<ConstraintViolation<SignUpDto>> constraintViolations = this.service.validateAndUpdateProfile(updateDto);
+		//if (constraintViolations.size() > 0 && file.isEmpty()) {
+			model.addAttribute("error", constraintViolations);
+			model.addAttribute("error", "please select file");
+			log.info("file not uploaded");
+			return "Updateprofile";
+
+	//	} 
+	//	return "Updateprofile";
+	}
+
+	@GetMapping("/download")
+	public void onDownload(HttpServletResponse response, @RequestParam String fileName, SignUpDto dto)
+			throws IOException {
+		log.info("onDownload "+fileName);
+		Path path = Paths.get("D:\\highway\\" + dto.getProfilePic());
+		path.toFile();
+		response.setContentType("image/jpeg");
+		File file = new File("D:\\Project_image_file\\" + fileName);
+		InputStream in = new BufferedInputStream(new FileInputStream(file));
+		ServletOutputStream out = response.getOutputStream();
+		IOUtils.copy(in, out);
+		response.flushBuffer();
+
 	}
 }

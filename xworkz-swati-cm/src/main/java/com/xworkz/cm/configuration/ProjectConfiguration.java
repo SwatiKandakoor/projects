@@ -47,5 +47,4 @@ public class ProjectConfiguration {
 		log.info("Registering the PasswordEncoder");
 		return new BCryptPasswordEncoder(10);
 	}
-
 }

@@ -153,15 +153,40 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		} finally {
 			manager.close();
 		}
-		
-	}
-		@Override
-		public SignUpEntity findByuserId(String userId) {
-			log.info("find by id in repo.." + userId);
-			EntityManager entitymanager = this.entityManagerFactory.createEntityManager();
-			SignUpEntity fromDb = entitymanager.find(SignUpEntity.class,userId);
-			entitymanager.close();
-			return fromDb;
-		}
 
+	}
+
+	@Override
+	public SignUpEntity findByuserId(String userId) {
+		log.info("find by id in repo.." + userId);
+		EntityManager entitymanager = this.entityManagerFactory.createEntityManager();
+		try {
+			EntityTransaction transaction = entitymanager.getTransaction();
+			transaction.begin();
+			Query query = entitymanager.createNamedQuery("findByUserId");
+			query.setParameter("userId", userId);
+			SignUpEntity signupentity = (SignUpEntity) query.getSingleResult();
+			transaction.commit();
+			return signupentity;
+		} finally {
+			entitymanager.close();
+		}
+	}
+
+	@Override
+	public SignUpEntity entityByEmail(String email) {
+		log.info("find by email in repo.." + email);
+		EntityManager entitymanager = this.entityManagerFactory.createEntityManager();
+		try {
+//			EntityTransaction transaction = entitymanager.getTransaction();
+//			transaction.begin();
+			Query query = entitymanager.createNamedQuery("findByEmail");
+			query.setParameter("email", email);
+			SignUpEntity signupentity = (SignUpEntity) query.getSingleResult();
+//			transaction.commit();
+			return signupentity;
+		} finally {
+			entitymanager.close();
+		}
+	}
 }

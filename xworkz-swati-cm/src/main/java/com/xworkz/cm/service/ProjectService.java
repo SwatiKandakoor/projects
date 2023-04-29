@@ -27,6 +27,10 @@ public interface ProjectService {
 	default SignUpDto findByuserId(String userId ) {
 		return null;
 	}
+	
+	default SignUpDto findByEmail(String email ) {
+		return null;
+	}
 
 
 	default String updatePwd(String userId, String password, boolean resetPwd) {

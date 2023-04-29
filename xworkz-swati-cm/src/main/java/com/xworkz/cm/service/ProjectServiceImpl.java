@@ -233,20 +233,33 @@ public class ProjectServiceImpl implements ProjectService {
 				return dto;
 			}
 		}
-		return ProjectService.super.findByuserId(userId);
+		return null;
+	}
+	
+	@Override
+	public SignUpDto findByEmail(String email) {
+		log.info("findByEmail"+email);
+		SignUpEntity entity = this.repository.entityByEmail(email);
+		if(entity!=null) {
+			SignUpDto dto = new SignUpDto();
+			BeanUtils.copyProperties(entity, dto);
+			return dto;
+		}
+		return ProjectService.super.findByEmail(email);
 	}
 
 	@Override
 	public Set<ConstraintViolation<SignUpDto>> validateAndUpdateProfile(SignUpDto dto) {
 		log.info("running validateAndUpdateProfile method....");
-		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		Validator validator = validatorFactory.getValidator();
-		Set<ConstraintViolation<SignUpDto>> constraintViolations = validator.validate(dto);
-		if (constraintViolations != null && !constraintViolations.isEmpty()) {
-			System.err.println("constraintViolations exists,return constraints");
-			return constraintViolations;
-		} else {
-			log.info("constraintViolations does not exist,data is good");
+	//	ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+	//	Validator validator = validatorFactory.getValidator();
+	//	Set<ConstraintViolation<SignUpDto>> constraintViolations = validator.validate(dto);
+		//if (constraintViolations != null && !constraintViolations.isEmpty()) {
+		//	System.err.println("constraintViolations exists,return constraints");
+		//	constraintViolations.forEach(e->log.info(""+e));
+		//	return constraintViolations;
+	//	} else {
+		//	log.info("constraintViolations does not exist,data is good");
 			SignUpEntity entity = new SignUpEntity();
 			BeanUtils.copyProperties(dto, entity);
 			entity.setCreatedBy(dto.getUserId());
@@ -261,7 +274,7 @@ public class ProjectServiceImpl implements ProjectService {
 			}
 			log.info("Entity data is update :" + update);
 			return Collections.emptySet();
-		}
+		//}
 	}
 
 }

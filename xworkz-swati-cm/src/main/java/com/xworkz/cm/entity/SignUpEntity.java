@@ -24,6 +24,7 @@ import lombok.Data;
 		+ "entity.updateBy=:updatedBy,entity.updatedDate=:updatedDate where entity.email=:email")
 @NamedQuery(name = "updateConfirmPassword", query = "update SignUpEntity entity set entity.password =: password, entity.resetPwd=:resetPwd,"
 	+ "entity.updateBy=:updatedBy,entity.updatedDate=:updatedDate where entity.userId=:userId")
+@NamedQuery(name="findByUserId",query = "select entity from SignUpEntity entity where entity.userId=:userId")
 //@NamedQuery(name = "updatePwdTime", query = "update SignUpEntity entity set entity.password=:password , entity.resetPwd=:reset,"
 //		+ "entity.otpRequestedTime=:otp where entity.userId=:user")
 

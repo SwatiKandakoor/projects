@@ -22,7 +22,12 @@ public interface ProjectRepository {
 	default List<SignUpEntity> findByEmail(String email) {
 		return Collections.emptyList();
 	}
+	
 	default SignUpEntity findByuserId(String userId ) {
+		return null;
+	}
+	
+	default SignUpEntity entityByEmail(String email ) {
 		return null;
 	}
 
