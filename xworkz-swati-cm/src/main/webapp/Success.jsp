@@ -24,16 +24,20 @@
 			<a class="navbar-brand" href="#"> <img
 				src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png"
 				alt="" width="150" height="55" class="d-inline-block align text-top">
+				<span style="color: white;">Welcome:${userID}</span>
+      <span> <img src="download?fileName=${dtoPic}" height="70" width="80"> </span>
 		</div>
 	</nav>
+	<h1>Welcome to success page,</h1>
 	<h1 style="color: green;">${UpdateSuccess}</h1>
 	userId :
+	
 	<h5 style="color: green;">${message}</h5>
 	
 
 	<a href="update?userId=${message}">Update Profile</a><br>
-	<a href="addTechnology">add</a><br>
-	<a href="Search.jsp">Search</a>
+	<a href="addTechnology">addTechnology</a><br>
+	<a href="KnownTechnology.jsp">KnownTechnology</a>
 
 
 </body>

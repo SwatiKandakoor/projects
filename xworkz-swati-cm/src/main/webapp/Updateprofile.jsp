@@ -69,11 +69,7 @@
 								 id="profilePicture"/> 
 									<label class="form-label" for="profilePicture"></label>
                                </div>
-
-<br>
 								<button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
-
-
 							</div>
 						</div>
 					</div>

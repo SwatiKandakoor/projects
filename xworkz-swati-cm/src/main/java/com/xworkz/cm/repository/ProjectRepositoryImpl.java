@@ -178,12 +178,12 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		log.info("find by email in repo.." + email);
 		EntityManager entitymanager = this.entityManagerFactory.createEntityManager();
 		try {
-//			EntityTransaction transaction = entitymanager.getTransaction();
-//			transaction.begin();
+			EntityTransaction transaction = entitymanager.getTransaction();
+			transaction.begin();
 			Query query = entitymanager.createNamedQuery("findByEmail");
 			query.setParameter("email", email);
 			SignUpEntity signupentity = (SignUpEntity) query.getSingleResult();
-//			transaction.commit();
+			transaction.commit();
 			return signupentity;
 		} finally {
 			entitymanager.close();

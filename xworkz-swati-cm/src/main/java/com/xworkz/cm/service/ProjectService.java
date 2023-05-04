@@ -2,6 +2,7 @@ package com.xworkz.cm.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -17,9 +18,7 @@ public interface ProjectService {
 
 	boolean sendMail(String email, String message);
 
-	default String signIn(String userId, String password) {
-		return null;
-	}
+	Map<String, SignUpDto> signIn(String userId, String password);
 
 	default String resetPwd(String email) {
 		return null;

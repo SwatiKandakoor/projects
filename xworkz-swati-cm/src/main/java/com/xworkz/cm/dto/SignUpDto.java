@@ -2,6 +2,7 @@ package com.xworkz.cm.dto;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Map;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
@@ -28,7 +29,7 @@ public class SignUpDto {
 	@Max(value = 9999999999l, message = "The number should start with 6 and must contain 10 digits ")
 	private long mobile;
 	@NotNull(message = "Password can't be null")
-	@Size(min = 5, max = 30, message = "password should be greater than 5 less than 20")
+	//@Size(min = 5, max = 30, message = "password should be greater than 5 less than 20")
 	private String password;
 	private String createdBy;
 	private LocalDateTime createdDate = LocalDateTime.now();

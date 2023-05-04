@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -140,7 +142,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public String signIn(String userId, String password) {
+	public Map<String, SignUpDto> signIn(String userId, String password) {
+		Map<String, SignUpDto> signUpmap = new TreeMap();
 		log.info("running signIn method...");
 		List<SignUpEntity> entities = this.repository.signIn(userId);
 		List<SignUpDto> listOfDto = new ArrayList<SignUpDto>();
@@ -151,29 +154,36 @@ public class ProjectServiceImpl implements ProjectService {
 			log.info("PasswordChangedTime--" + entity.getOtpRequestedTime());
 
 			SignUpDto dto = new SignUpDto();
+		//	BeanUtils.copyProperties(entity, dto);
 			if (entity.getLoginCount() >= 3) {
-				return "locked";
+				 signUpmap.put("locked", dto);
+				return  signUpmap;
+				
 			}
 			if (encoder.matches(password, entity.getPassword())) {
-				BeanUtils.copyProperties(entity, dto);
+					BeanUtils.copyProperties(entity, dto);
 				listOfDto.add(dto);
 				log.info("matched :" + password);
 				this.repository.updateWrongLoginAttempts(userId, 0);
 				if (entity.isResetPwd()) {
 					if (LocalDateTime.now().isAfter(entity.getOtpRequestedTime())) {
-						return "opt_resettime_exp";
+						 signUpmap.put("opt_resettime_exp", dto);
+						return signUpmap;
 					}
-					return "reset_pwd";
+					signUpmap.put("reset_pwd", dto);
+					return signUpmap;
 				}
+				signUpmap.put("login_success", dto);
 
-				return "login_success";
+				return signUpmap;
 			} else {
 				this.repository.updateWrongLoginAttempts(userId, entity.getLoginCount() + 1);
 				log.info("Wrong login attempts " + (entity.getLoginCount() + 1));
 			}
 
 		}
-		return "login_fail";
+		signUpmap.put("login_fail", null);
+		return signUpmap;
 	}
 
 	@Override
@@ -251,16 +261,16 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public Set<ConstraintViolation<SignUpDto>> validateAndUpdateProfile(SignUpDto dto) {
 		log.info("running validateAndUpdateProfile method....");
-	//	ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-	//	Validator validator = validatorFactory.getValidator();
-	//	Set<ConstraintViolation<SignUpDto>> constraintViolations = validator.validate(dto);
-		//if (constraintViolations != null && !constraintViolations.isEmpty()) {
-		//	System.err.println("constraintViolations exists,return constraints");
-		//	constraintViolations.forEach(e->log.info(""+e));
-		//	return constraintViolations;
-	//	} else {
-		//	log.info("constraintViolations does not exist,data is good");
-			SignUpEntity entity = new SignUpEntity();
+		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+		Validator validator = validatorFactory.getValidator();
+		Set<ConstraintViolation<SignUpDto>> constraintViolations = validator.validate(dto);
+		if (constraintViolations != null && !constraintViolations.isEmpty()) {
+			System.err.println("constraintViolations exists,return constraints");
+			constraintViolations.forEach(e->log.info(""+e));
+			return constraintViolations;
+		} else {
+			log.info("constraintViolations does not exist,data is good");
+			SignUpEntity entity = this.repository.entityByEmail(dto.getEmail());
 			BeanUtils.copyProperties(dto, entity);
 			entity.setCreatedBy(dto.getUserId());
 			entity.setPassword(encoder.encode(dto.getPassword()));
@@ -274,7 +284,7 @@ public class ProjectServiceImpl implements ProjectService {
 			}
 			log.info("Entity data is update :" + update);
 			return Collections.emptySet();
-		//}
+		}
 	}
 
 }
