@@ -155,7 +155,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 			SignUpDto dto = new SignUpDto();
 		//	BeanUtils.copyProperties(entity, dto);
-			if (entity.getLoginCount() >= 3) {
+			if (entity.getLoginCount() >= 3 && !entity.isResetPwd()) {
 				 signUpmap.put("locked", dto);
 				return  signUpmap;
 				
@@ -273,7 +273,7 @@ public class ProjectServiceImpl implements ProjectService {
 			SignUpEntity entity = this.repository.entityByEmail(dto.getEmail());
 			BeanUtils.copyProperties(dto, entity);
 			entity.setCreatedBy(dto.getUserId());
-			entity.setPassword(encoder.encode(dto.getPassword()));
+			entity.setPassword(dto.getPassword());
 
 			log.info("password" + dto);
 			boolean update = this.repository.updateProfile(entity);

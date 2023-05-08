@@ -27,7 +27,7 @@
 				<a href="index.jsp">Home</a>
 		</div>
 	</nav>
-	<h4>${message}</h4>
+		<div align="center">User Name:${message}</div>
 	<form action="updatePwd" method="post">
 		<input type="hidden" name="userId" value=${message } />
 		<section class="vh-100">

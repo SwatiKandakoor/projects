@@ -17,18 +17,21 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<!--<nav class="navbar navbar-expand-lg-navbar-Light bg-dark">
+
+	<nav class="navbar navbar-expand-lg-navbar-Light bg-dark">
 		<div class="container-fluid">
-			  <a class="navbar-brand" href="#"> <img
-				src=" https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png"
-				alt="" width="80" height="48" class="d-inline-block align text-top"></a>
-			<div>
-				<a href="LoginSucess.jsp" class="btn btn-info">Home</a> <span
-					style="color: white;">Welcome:${userID}</span> <img
-					src="download?fileName=${dtoPic}" height="90" width="80">
-			</div>
+			<a class="navbar-brand" href="#"> <img
+				src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png"
+				alt="" width="150" height="55" class="d-inline-block align text-top">
+				<div>
+					<a href="index.jsp">Home</a> <span style="color: white;">Welcome:${userID}</span>
+					<span> <img src="download?fileName=${dtoPic}" height="70"
+						width="80">
+					</span>
+				</div>
 		</div>
-	</nav>-->
+		</div>
+	</nav>
 	<form action="addTechnology" method="post">
 		<input type="hidden" value="${userID}" name="userId"
 			readonly="readonly">
@@ -39,8 +42,8 @@
 					<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 						<div class="card shadow-2-strong" style="border-radius: 1rem;">
 							<div class="card-body p-5 text-center">
-								<h1>Add Technology Form</h1>
-
+								<h3>Add Technology Form</h3>
+<br>
 								<span style="color: red">${errors}</span> <span
 									style="color: green;">${addTechSuccess}</span>
 

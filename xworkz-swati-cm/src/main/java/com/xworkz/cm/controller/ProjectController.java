@@ -91,7 +91,7 @@ public class ProjectController {
 			} else if (signUpMap.containsKey("login_success")) {
 				log.info("User ID and Password is Matching");
 				SignUpDto dto = signUpMap.get("login_success");
-				model.addAttribute("message", userId);
+				model.addAttribute("userId", userId);
 				HttpSession httpSession = request.getSession(true);
 				httpSession.setAttribute("userID", dto.getUserId());
 				if (dto.getProfilePic() != null) {
@@ -125,7 +125,7 @@ public class ProjectController {
 		if (msg != null) {
 			log.info("Successfully update your password..");
 			model.addAttribute("UpdateSuccess", "You have successfully changed your password");
-			model.addAttribute("message", userId);
+			model.addAttribute("userId", userId);
 			return "Success";
 		}
 		return "UpdatePwd";

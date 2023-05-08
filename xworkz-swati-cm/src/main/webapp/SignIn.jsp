@@ -17,8 +17,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 	crossorigin="anonymous"></script>
-	
-	 <script src="timer.js"></script>
+
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg-navbar-Light bg-dark">
@@ -29,9 +28,6 @@
 				<a href="index.jsp">Home</a>
 		</div>
 	</nav>
-	<h5 style="color: red">${msgs}</h5>
-
-	<h4 style="color: red">${message}</h4>
 	<form action="signIn" method="post">
 		<section class="vh-100">
 			<div class="container py-5 h-100">
@@ -43,6 +39,8 @@
 
 								<h3 class="mb-5">Sign in</h3>
 								<p>Please enter your User Id and password!</p>
+								<h5 style="color: red">${msgs}</h5>
+								<h4 style="color: red">${message}</h4>
 
 								<div class="form-outline mb-4">
 									<input type="text" class="form-control" name="userId"
@@ -53,31 +51,8 @@
 								<div class="form-outline mb-4">
 									<input type="password" id="typePasswordX-2"
 										class="form-control " name="password" placeholder="Password" />
-									<label class="form-label" for="typePasswordX-2"></label>
-								<!-- <div>
-										Time: <span id="time"></span>
-									</div>
-
-
-
-
-									<div>
-										Time interval <span id="minute"></span>:<span id="second"></span>
-									</div>
- -->	
-
-
-
-
-								<div
-									class="d-flex justify-content-around align-items-center mb-4">
-									<!-- Checkbox -->
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value=""
-											id="form1Example3" /> <label class="form-check-label"
-											for="form1Example3"> Remember me </label>
-									</div>
-									<a href="Forgotpwd.jsp">Forgot password?</a>
+									<label class="form-label" for="typePasswordX-2"></label> <a
+										href="Forgotpwd.jsp">Forgot password?</a>
 								</div>
 								<button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
 								<hr>

@@ -27,7 +27,6 @@
 				<a href="index.jsp">Home</a>
 		</div>
 	</nav>
-	<!--  	<h4 style="color:green">${message}</h4>-->
 
 	<form action="resetPwd" method="post">
 		<section class="vh-100">
@@ -39,12 +38,12 @@
 							<div class="card-body p-5 text-center">
 								<h3 class="mb-5">Forgot Password</h3>
 								<div class="form-outline mb-4">
-									<input type="text" class="form-control " placeholder="Email"
-										name="email" /> <label class="form-label"> </label>
+									<input type="email" class="form-control " placeholder="Email"
+										id="EmailId" name="email" onchange="onEmail()" /> <label
+										class="form-label" for="EmailId"> </label> <span
+										id="EmailError" style="color: red"></span>
 								</div>
 								<button class="btn btn-primary btn-lg btn-block" type="submit">Reset</button>
-								<br> <br>
-								<hr>
 							</div>
 
 							<div>
@@ -53,6 +52,34 @@
 								</p>
 							</div>
 							<br>
+							<script>
+								function onEmail() {
+									console.log("running onEmail")
+									var emailInput = document
+											.getElementById('EmailId');
+									var emailValue = emailInput.value;
+									console.log(emailValue);
+									if (emailValue != null && emailValue != ""
+											&& emailValue.length > 3
+											&& emailValue.length < 30) {
+										console.log('valid email');
+										var agrement = document
+												.getElementById('agreement');
+										if (agrement.checked) {
+											document.getElementById('submitId').disabled = false;
+										}
+										document.getElementById('EmailError').innerHTML = '';
+									}
+
+									else {
+										console.log('invalid email');
+										document.getElementById('submitId').disabled = 'disabled';
+
+										document.getElementById('EmailError').innerHTML = 'Invalid Email, please enter min 3 and max 30';
+									}
+
+								}
+							</script>
 						</div>
 					</div>
 				</div>

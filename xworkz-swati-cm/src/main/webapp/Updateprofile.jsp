@@ -26,7 +26,13 @@
 			<a class="navbar-brand" href="#"> <img
 				src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png"
 				alt="" width="150" height="55" class="d-inline-block align text-top">
-				<a href="index.jsp">Home</a>
+				<div>
+					<a href="index.jsp">Home</a> <span style="color: white;">Welcome:${userID}</span>
+					<span> <img src="download?fileName=${dtoPic}" height="70"
+						width="80">
+					</span>
+				</div>
+		</div>
 		</div>
 	</nav>
 
@@ -63,7 +69,6 @@
 										for="MobileNoId">Mobile number</label>
 
 								</div>
-
                                 <div>
 								Select Profile Pic :<input type="file" name="profilePicture"
 								 id="profilePicture"/> 

@@ -23,55 +23,58 @@
 				src=" https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png"
 				alt="" width="80" height="48" class="d-inline-block align text-top"></a>
 			<div>
-				<a href="LoginSucess.jsp" class="btn btn-info">Home</a> <span
-					style="color: white;">Welcome ${userID}</span> <img
-					src="download?fileName=${dtoPic}" height="50" width="80">
+				<a href="index.jsp">Home</a> <span style="color: white;">Welcome
+					${userID}</span> <img src="download?fileName=${dtoPic}" height="50"
+					width="80">
 			</div>
 		</div>
 	</nav>
-	<div align="center" style="color: green;">These are
-		technology were added by ${userID}</div>
-		
-	<form action="searchByKeyword" >
+	<div align="center" style="color: green;">These are technology
+		were added by : ${userID}</div>
+
+	<form action="searchByKeyword">
 
 		<div style="color: purple;" align="center">
-			Search Bar<input type="search" name="keyword" /> 
-			  <input type="submit" value="search" class="btn btn-secondary"> </form>
-		</div>
-		<table class="table table-bordered">
-			<thead class="thead-dark  ">
+			Search Bar<input type="search" name="keyword" /> <input
+				type="submit" value="search" class="btn btn-secondary">
+	</form>
+	</div>
+	<table class="table table-bordered">
+		<thead class="thead-dark  ">
 
-				<tr class="table-dark">
-					<th scope="col">Technology Name</th>
-					<th scope="col">Technology Language</th>
-					<th scope="col">Technology Version</th>
-					<th scope="col">Technology Owner</th>
-					<th scope="col">Support From</th>
-					<th scope="col">Support to</th>
-					<th scope="col">License</th>
-					<th scope="col">Open source</th>
-					<th scope="col">OS Type</th>
+			<tr class="table-dark">
+				<th scope="col">Technology Name</th>
+				<th scope="col">Technology Language</th>
+				<th scope="col">Technology Version</th>
+				<th scope="col">Technology Owner</th>
+				<th scope="col">Support From</th>
+				<th scope="col">Support to</th>
+				<th scope="col">License</th>
+				<th scope="col">Open source</th>
+				<th scope="col">OS Type</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${list}" var="l">
+				<tr>
+					<td>${l.name}</td>
+					<td>${l.language}</td>
+					<td>${l.version}</td>
+					<td>${l.owner}</td>
+					<td>${l.supportFrom}</td>
+					<td>${l.supportTo}</td>
+					<td>${l.license}</td>
+					<td>${l.osType}</td>
+					<td>${l.openSource}</td>
 				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${list}" var="l">
-					<tr>
-						<td>${l.name}</td>
-						<td>${l.language}</td>
-						<td>${l.version}</td>
-						<td>${l.owner}</td>
-						<td>${l.supportFrom}</td>
-						<td>${l.supportTo}</td>
-						<td>${l.license}</td>
-						<td>${l.osType}</td>
-						<td>${l.openSource}</td>
-					</tr>
-				</c:forEach>
-				</tbody>
-				</table>				
-				<div align="center"><a href="view" class="btn btn-info">View Technologies</a></div>
-				</body>
-				</html>
-			
-	
+			</c:forEach>
+		</tbody>
+	</table>
+	<div align="center">
+		<a href="view" class="btn btn-info">View Technologies</a>
+	</div>
+</body>
+</html>
+
+
 
